@@ -131,12 +131,11 @@ public class CLI {
         System.out.println("Podaj hasło:");
         String password = scanner.nextLine();
 
-        StringBuilder registrationRequest = new StringBuilder("type:registration_request#");
-        registrationRequest.append("message_id:").append(messageIdCounter).append("#");
-        registrationRequest.append("login:").append(login).append("#");
-        registrationRequest.append("password:").append(password).append("#");
+        String registrationRequest = "type:registration_request#" + "message_id:" + messageIdCounter + "#" +
+                "login:" + login + "#" +
+                "password:" + password + "#";
 
-        out.println(registrationRequest.toString());
+        out.println(registrationRequest);
         MessageManager responseManager = new MessageManager(in.readLine());
 
         while(!responseManager.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
@@ -156,12 +155,11 @@ public class CLI {
         System.out.println("Podaj hasło:");
         String password = scanner.nextLine();
 
-        StringBuilder loginRequest = new StringBuilder("type:login_request#");
-        loginRequest.append("message_id:").append(messageIdCounter).append("#");
-        loginRequest.append("login:").append(login).append("#");
-        loginRequest.append("password:").append(password).append("#");
+        String loginRequest = "type:login_request#" + "message_id:" + messageIdCounter + "#" +
+                "login:" + login + "#" +
+                "password:" + password + "#";
 
-        out.println(loginRequest.toString());
+        out.println(loginRequest);
         MessageManager responseManager = new MessageManager(in.readLine());
 
         while(!responseManager.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
@@ -179,10 +177,8 @@ public class CLI {
     }
 
     private static void handleRetrieveLast10Posts(PrintWriter out, BufferedReader in) throws IOException {
-        StringBuilder getPostsRequest = new StringBuilder("type:retrive_last_10_posts_request#");
-        getPostsRequest.append("message_id:").append(messageIdCounter).append("#");
 
-        out.println(getPostsRequest.toString());
+        out.println("type:retrive_last_10_posts_request#" + "message_id:" + messageIdCounter + "#");
         MessageManager responseManager = new MessageManager(in.readLine());
 
         while(!responseManager.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
@@ -226,12 +222,11 @@ public class CLI {
         System.out.println("Wpisz treść posta:");
         String postContent = scanner.nextLine();
 
-        StringBuilder sendPostRequest = new StringBuilder("type:send_post_request#");
-        sendPostRequest.append("message_id:").append(messageIdCounter).append("#");
-        sendPostRequest.append("post:").append(postContent).append("#");
-        sendPostRequest.append("login:").append(userLogin).append("#");
+        String sendPostRequest = "type:send_post_request#" + "message_id:" + messageIdCounter + "#" +
+                "post:" + postContent + "#" +
+                "login:" + userLogin + "#";
 
-        out.println(sendPostRequest.toString());
+        out.println(sendPostRequest);
         MessageManager responseManager = new MessageManager(in.readLine());
 
         while(!responseManager.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
@@ -288,11 +283,9 @@ public class CLI {
 
                 out.println(packageRequest);
 
-                response = new MessageManager(in.readLine());
-
-                while(!response.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
+                do {
                     response = new MessageManager(in.readLine());
-                }
+                } while (!response.getAttribute("message_id").equals(String.valueOf(messageIdCounter)));
 
                 if (!response.getAttribute("status").equals("200")) {
                     System.out.println("Błąd podczas wysyłania pakietu " + response.getAttribute("packageNumber"));
@@ -306,11 +299,9 @@ public class CLI {
                     + "#login:" + userLogin + "#file_name:" + fileName + "#action:finish#";
             out.println(finishRequest);
 
-            response = new MessageManager(in.readLine());
-
-            while(!response.getAttribute("message_id").equals(String.valueOf(messageIdCounter))){
+            do {
                 response = new MessageManager(in.readLine());
-            }
+            } while (!response.getAttribute("message_id").equals(String.valueOf(messageIdCounter)));
 
             if (response.getAttribute("status").equals("200")) {
                 System.out.println("Pomyślnie wysłano plik.");
@@ -318,7 +309,7 @@ public class CLI {
         }
     }
 
-    private static void handleGetFile(Scanner scanner, PrintWriter out, BufferedReader in) throws IOException {
+    private static void handleGetFile(Scanner scanner, PrintWriter out, BufferedReader in) {
         System.out.println("Podaj nazwę pliku do pobrania:");
         String fileName = scanner.nextLine();
 
