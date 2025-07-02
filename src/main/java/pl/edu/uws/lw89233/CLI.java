@@ -1,6 +1,5 @@
 package pl.edu.uws.lw89233;
 
-import pl.edu.uws.lw89233.managers.EnvManager;
 import pl.edu.uws.lw89233.managers.MessageManager;
 import java.io.BufferedReader;
 import java.io.File;
@@ -16,12 +15,18 @@ import java.util.Scanner;
 
 public class CLI {
 
-    private static final String SERVER_ADDRESS = EnvManager.getEnvVariable("SERVER_ADDRESS");
-    private static final int SERVER_PORT = Integer.parseInt(EnvManager.getEnvVariable("SERVER_PORT"));
+    private static final String SERVER_ADDRESS = System.getenv("SERVER_ADDRESS");
+    private static final int SERVER_PORT = Integer.parseInt(System.getenv("SERVER_PORT"));
     private static int messageIdCounter = 1;
     private static String userLogin;
 
     public static void main(String[] args) {
+
+        if (SERVER_ADDRESS == null || System.getenv("SERVER_PORT") == null) {
+            System.err.println("Błąd: Zmienne środowiskowe SERVER_ADDRESS i SERVER_PORT muszą być ustawione.");
+            return;
+        }
+
         try (Socket socket = new Socket(SERVER_ADDRESS, SERVER_PORT);
              PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
