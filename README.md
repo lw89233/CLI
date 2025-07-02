@@ -16,7 +16,20 @@ SERVER_ADDRESS=
 
 SERVER_PORT=
 
+## Wymagania
+
+Do poprawnego działania tego komponentu wymagane jest uruchomienie i skonfigurowanie następujących usług:
+
+* **API Gateway**: Komponent komunikuje się z resztą systemu poprzez API Gateway.
 
 ## Uruchomienie
 
-Aplikację można uruchomić, wykonując główną metodę `main` w klasie `CLI.java`.
+Uruchomienie aplikacji odbywa się przy użyciu Dockera.
+
+1.  **Sklonuj repozytorium**
+2.  **Skonfiguruj zmienne środowiskowe**: Utwórz plik `.env` w głównym katalogu projektu i uzupełnij go o wymagane wartości (możesz skorzystać z `.env.sample`).
+3.  **Uruchom aplikację**: W głównym katalogu projektu wykonaj polecenie:
+    ```bash
+    docker-compose up --build
+    ```
+    Spowoduje to zbudowanie obrazu Docker i uruchomienie kontenera z aplikacją.
