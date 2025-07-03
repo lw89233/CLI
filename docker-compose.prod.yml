@@ -1,7 +1,6 @@
 services:
   cli-app:
-    build: .
-    image: cli-app:latest
+    image: lw89233/cli-app:latest
     container_name: cli-app-service
     stdin_open: true
     tty: true
