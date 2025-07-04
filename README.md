@@ -41,7 +41,7 @@ Ta metoda wykorzystuje gotowy obraz z repozytorium Docker Hub.
 
 1.  **Pobierz obraz**: Na serwerze docelowym wykonaj polecenie, aby pobrać najnowszą wersję obrazu z repozytorium na Docker Hub.
     ```bash
-    docker pull lw89233/cli-app:latest
+    docker pull lw89233/cli:latest
     ```
 
 2.  **Przygotuj pliki konfiguracyjne**: W jednym katalogu na serwerze umieść:
@@ -49,9 +49,9 @@ Ta metoda wykorzystuje gotowy obraz z repozytorium Docker Hub.
     * Plik `docker-compose.prod.yml` o następującej treści:
         ```yaml
         services:
-          cli-app:
-            image: lw89233/cli-app:latest
-            container_name: cli-app-service
+          cli:
+            image: lw89233/cli:latest
+            container_name: cli-service
             stdin_open: true
             tty: true
             restart: unless-stopped

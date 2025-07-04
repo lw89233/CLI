@@ -1,7 +1,7 @@
 services:
-  cli-app:
-    image: lw89233/cli-app:latest
-    container_name: cli-app-service
+  cli:
+    image: lw89233/cli:latest
+    container_name: cli-service
     stdin_open: true
     tty: true
     restart: unless-stopped
